@@ -17,7 +17,7 @@ def request_api(url, data, headers):
     content = json.loads(content)
     if content['code']:
         print('请求出错')
-        exit()
+        return False
     # 返回数据
     data = content['data']
     return data
