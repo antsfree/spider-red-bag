@@ -42,6 +42,6 @@ for i in range(1, 10000):
     # 获取红包信息
     red_bag_info = request_api(click_red_bag_url, data, headers)
     res = insert_red_bag(red_bag_info)
-    sleep_time = random.randint(0, 1)
+    sleep_time = random.randint(2, 5)
     time.sleep(sleep_time)
     # print(str(sleep_time) + '--' + str(res))
