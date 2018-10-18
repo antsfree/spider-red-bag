@@ -50,6 +50,14 @@ for i in range(1, 10000):
     if not delete_ids:
         continue
     # delete
+    connect = pymysql.Connect(
+        host=DB_HOST,
+        port=DB_PORT,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        db=DB_DATABASE,
+        charset=DB_CHARSET
+    )
     cursor = connect.cursor()
     delete_sql = 'delete from red_bag where id in (' + delete_ids + ')'
     cursor.execute(delete_sql)
