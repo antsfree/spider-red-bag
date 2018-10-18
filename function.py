@@ -1,8 +1,5 @@
-from urllib import request
-import base64
-from zlib import decompress
-import os
-import config
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import requests
 import json
 
