@@ -13,7 +13,7 @@ for i in range(1, 10000):
     response = request_api(red_bag_list_url, data, headers)
     try:
         list_num = len(response['list'])
-        next_time = int(response['next_time']) - 30
+        next_time = int(response['next_time']) + 10
     except Exception:
         list_num = 0
         next_time = 10

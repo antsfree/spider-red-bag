@@ -26,6 +26,8 @@ def insert_red_bag(red_bag_info):
         charset=DB_CHARSET
     )
     cursor = connect.cursor()
+    # if red_bag_info['money'] < '0.0450':
+    #     return False
     insert_str = 'insert into red_bag (`sign`,`red_bag_id`,`uid`,`money`,`stock_num`,`type`) values ("' + red_bag_info[
         'sign'] + '","' + str(red_bag_info['id']) + '","' + str(red_bag_info['uid']) + '","' + red_bag_info[
                      'money'] + '","' + \
