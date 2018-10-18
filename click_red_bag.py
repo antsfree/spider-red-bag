@@ -13,11 +13,11 @@ for i in range(1, 10000):
     response = request_api(red_bag_list_url, data, headers)
     try:
         list_num = len(response['list'])
-        next_time = response['next_time']
+        next_time = int(response['next_time']) - 30
     except Exception:
         list_num = 0
-        next_time = 32
-    time.sleep(next_time - 30)
+        next_time = 10
+    time.sleep(int(next_time))
     if list_num <= 1:
         continue
     iterating_num = list_num - 1
