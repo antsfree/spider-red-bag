@@ -44,4 +44,4 @@ for i in range(1, 10000):
     res = insert_red_bag(red_bag_info)
     sleep_time = random.randint(0, 1)
     time.sleep(sleep_time)
-    print(str(sleep_time) + '--' + str(res))
+    # print(str(sleep_time) + '--' + str(res))
