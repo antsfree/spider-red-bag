@@ -17,8 +17,8 @@ for i in range(1, 10000):
     except Exception:
         list_num = 0
         next_time = 10
-    time.sleep(int(next_time))
     if list_num <= 1:
+        time.sleep(int(next_time))
         continue
     iterating_num = list_num - 1
     # 查表
@@ -51,8 +51,8 @@ for i in range(1, 10000):
         continue
     # delete
     cursor = connect.cursor()
-    search_sql = 'delete from red_bag where id in (' + delete_ids + ')'
-    cursor.execute(search_sql)
+    delete_sql = 'delete from red_bag where id in (' + delete_ids + ')'
+    cursor.execute(delete_sql)
     connect.commit()
     cursor.close()
     connect.close()
