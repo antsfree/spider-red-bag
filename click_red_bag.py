@@ -52,10 +52,10 @@ def delete_clicked_red_bag(del_ids=''):
 
 # 红包列表路由
 red_bag_list_url = BASE_API_URL + 'redbag/redbag-list'
-# 用户 header 头列表
-header_list = return_user_header_list()
 # 持续执行 sleep&enumerate
 while 1:
+    # 用户 header 头列表，每次循环重新请求获取
+    header_list = return_user_header_list()
     # 循环用户入参列表，实现多用户切换取值
     for request_header in header_list:
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[

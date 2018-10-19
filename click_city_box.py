@@ -7,12 +7,12 @@ from user_info import return_user_header_list
 from region import fetch_all_region
 import time
 
-# 用户 header 头列表
-header_list = return_user_header_list()
 # 区县列表
 city_list = fetch_all_region()
 
 while 1:
+    # 用户 header 头列表
+    header_list = return_user_header_list()
     for request_header in header_list:
         ad_box_url = BASE_API_URL + 'grid/get-list'
         click_url = BASE_API_URL + 'grid/detail'
