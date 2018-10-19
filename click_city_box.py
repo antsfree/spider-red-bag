@@ -26,7 +26,7 @@ for request_header in header_list:
             if vv['img']:
                 click_data = 'city_id=' + str(v[0]) + '&grid_id=' + vv['grid_id'] + '&longitude=' + v[
                     1] + '&latitude=' + v[2]
-                print(click_data)
+                # print(click_data)
                 try:
                     detail = request_api(click_url, click_data, request_header)
                 except Exception:

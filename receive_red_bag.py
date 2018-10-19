@@ -62,11 +62,11 @@ def main():
         request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
         res = insert_red_bag(request_data, request_header)
-        if res:
-            print(res)
+        # if res:
+        #     print(res)
 
 
 if __name__ == '__main__':
     while 1:
         main()
-        time.sleep(1)
+        time.sleep(0.1)
