@@ -52,11 +52,9 @@ def insert_red_bag(data, request_headers, min_money='0.0450'):
     return insert_id
 
 
-# 用户 header 头列表
-header_list = return_user_header_list()
-
-
 def main():
+    # 用户 header 头列表
+    header_list = return_user_header_list()
     for request_header in header_list:
         # 不同的用户不同的请求数据
         request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
