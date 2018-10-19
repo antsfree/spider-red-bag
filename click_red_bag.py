@@ -7,7 +7,7 @@ from function import *
 import time
 
 red_bag_list_url = BASE_API_URL + 'redbag/redbag-list'
-data = 'longitude=118.762329&latitude=31.97537711&uid=426408'
+data = 'type=2&longitude=118.71074201&latitude=32.19350755&id=1&uid=713715'
 # data = 'longitude=118.717029&latitude=32.191247&uid=426408'
 
 for i in range(1, 10000):
