@@ -9,3 +9,9 @@
 ④ [已完成] 支持多用户切换；
 
 ⑤ 跟进换地登录影响数据的问题；
+
+### 备注
+
+> 1、 「git rm -r --cached .」 处理好 gitignore 配置的相关文件。
+>
+> 2、 拷贝 config.py.example 到 config.py 。
