@@ -16,7 +16,6 @@ def request_api(url, data, headers):
     content = res.content.decode(encoding='utf-8')
     content = json.loads(content)
     if content['code']:
-        print('请求出错')
         return False
     # 返回数据
     data = content['data']
