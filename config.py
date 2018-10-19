@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# 示例
 DB_HOST = 'localhost'
 DB_PORT = 3306
 DB_USER = 'root'
