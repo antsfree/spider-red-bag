@@ -6,6 +6,7 @@ import pymysql
 import time
 import random
 from function import *
+from user_info import return_user_header_list
 
 
 def insert_red_bag(data, request_headers, min_money='0.0450'):
@@ -17,7 +18,7 @@ def insert_red_bag(data, request_headers, min_money='0.0450'):
     :return:
     """
     # 随机休眠
-    # sleep_time = random.randint(2, 5)
+    # sleep_time = random.randint(1, 3)
     # time.sleep(sleep_time)
     # 请求路由
     click_red_bag_url = BASE_API_URL + 'redbag/click'
@@ -33,6 +34,11 @@ def insert_red_bag(data, request_headers, min_money='0.0450'):
         charset=DB_CHARSET
     )
     cursor = connect.cursor()
+    try:
+        if not red_bag_info['money']:
+            return False
+    except Exception:
+        return False
     if red_bag_info['money'] < min_money:
         return False
     insert_str = 'insert into red_bag (`sign`,`red_bag_id`,`uid`,`money`,`stock_num`,`type`) values ("' + red_bag_info[
@@ -46,9 +52,21 @@ def insert_red_bag(data, request_headers, min_money='0.0450'):
     return insert_id
 
 
-# 不同的用户不同的请求数据
-request_data = 'type=2&longitude=118.75538719&latitude=31.97804634&id=1&uid=426408'
+# 用户 header 头列表
+header_list = return_user_header_list()
 
-for i in range(1, 10000):
-    res = insert_red_bag(request_data, headers)
-    print(res)
+
+def main():
+    for request_header in header_list:
+        # 不同的用户不同的请求数据
+        request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
+            'latitude'] + '&id=1&uid=' + request_header['uid']
+        res = insert_red_bag(request_data, request_header)
+        if res:
+            print(res)
+
+
+if __name__ == '__main__':
+    while 1:
+        main()
+        time.sleep(1)

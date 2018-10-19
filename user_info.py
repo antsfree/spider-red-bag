@@ -28,6 +28,13 @@ def return_user_header_list():
     user_headers = []
     for k, v in enumerate(user_list):
         user_headers.append(
-            {'uid': v[1], 'Authorization': v[3], 'Cookie': v[4], 'Content-Type': 'application/x-www-form-urlencoded'}
+            {
+                'uid': v[1],
+                'Authorization': v[3],
+                'Cookie': v[4],
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'longitude': v[5],
+                'latitude': v[6]
+            }
         )
     return user_headers
