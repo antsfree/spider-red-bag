@@ -91,7 +91,6 @@ while 1:
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
-        print(response)
         try:
             list_num = len(response['list'])
             # 更新用户余额
