@@ -78,7 +78,7 @@ while 1:
             charset=DB_CHARSET
         )
         cursor = connect.cursor()
-        search_sql = 'select id,red_bag_id,sign from red_bag order by money desc limit 1'
+        search_sql = 'select id,red_bag_id,sign from red_bag order by money desc limit ' + str(iterating_num)
         cursor.execute(search_sql)
         sign_list = cursor.fetchall()
         cursor.close()
@@ -94,7 +94,31 @@ while 1:
             continue
         # delete
         delete_clicked_red_bag(delete_ids)
-        # !!强制更新 next_time
-        request_api(red_bag_list_url, red_bag_list_request_data, request_header)
+        # !!强制更新 next_time, 同时更新用户表
+        success_response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
+        try:
+            if success_response['user_money']:
+                user_money = success_response['user_money']
+                # 查表
+                update_connect = pymysql.Connect(
+                    host=DB_HOST,
+                    port=DB_PORT,
+                    user=DB_USER,
+                    password=DB_PASSWORD,
+                    db=DB_DATABASE,
+                    charset=DB_CHARSET
+                )
+                cursor = update_connect.cursor()
+                update_sql = 'update user_info set user_money=' + user_money + ' where uid=' + request_header['uid']
+                try:
+                    cursor.execute(update_sql)
+                    # 提交
+                    update_connect.commit()
+                    cursor.close()
+                    update_connect.close()
+                except Exception:
+                    continue
+        except Exception:
+            continue
     # 所有用户扫一遍后，进入随机休眠
     time.sleep(random.randint(60, 120))
