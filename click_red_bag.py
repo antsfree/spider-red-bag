@@ -50,6 +50,36 @@ def delete_clicked_red_bag(del_ids=''):
     del_connect.close()
 
 
+def update_user_info(uid, user_money):
+    """
+    更新用户信息
+    :param uid:
+    :param user_money:
+    :return:
+    """
+    try:
+        update_connect = pymysql.Connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            db=DB_DATABASE,
+            charset=DB_CHARSET
+        )
+        update_cursor = update_connect.cursor()
+        update_sql = 'update user_info set user_money=' + str(user_money) + ' where uid=' + str(uid)
+        try:
+            update_cursor.execute(update_sql)
+            # 提交
+            update_connect.commit()
+            update_cursor.close()
+            update_connect.close()
+        except Exception:
+            return False
+    except Exception:
+        return False
+
+
 # 红包列表路由
 red_bag_list_url = BASE_API_URL + 'redbag/redbag-list'
 # 持续执行 sleep&enumerate
@@ -63,6 +93,9 @@ while 1:
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
         try:
             list_num = len(response['list'])
+            # 更新用户余额
+            # TODO 更新用户next_time，优化 IO
+            update_user_info(request_header['uid'], response['user_money'])
         except Exception:
             list_num = 0
         if list_num <= 1:
@@ -78,7 +111,7 @@ while 1:
             charset=DB_CHARSET
         )
         cursor = connect.cursor()
-        search_sql = 'select id,red_bag_id,sign from red_bag order by money desc limit 1'
+        search_sql = 'select id,red_bag_id,sign from red_bag order by money desc limit ' + str(iterating_num)
         cursor.execute(search_sql)
         sign_list = cursor.fetchall()
         cursor.close()
@@ -94,7 +127,7 @@ while 1:
             continue
         # delete
         delete_clicked_red_bag(delete_ids)
-        # !!强制更新 next_time
+        # !!强制更新 next_time, 同时更新用户表
         request_api(red_bag_list_url, red_bag_list_request_data, request_header)
     # 所有用户扫一遍后，进入随机休眠
     time.sleep(random.randint(60, 120))

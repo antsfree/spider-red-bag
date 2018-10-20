@@ -13,27 +13,27 @@ city_list = fetch_all_region()
 while 1:
     # 用户 header 头列表
     header_list = return_user_header_list()
-    for request_header in header_list:
-        ad_box_url = BASE_API_URL + 'grid/get-list'
-        click_url = BASE_API_URL + 'grid/detail'
-        for k, v in enumerate(city_list):
-            data = 'city_id=' + str(v[0]) + '&page=1'
-            res = request_api(ad_box_url, data, request_header)
-            try:
-                if not res['list']:
-                    continue
-            except Exception:
+    ad_box_url = BASE_API_URL + 'grid/get-list'
+    click_url = BASE_API_URL + 'grid/detail'
+    for k, v in enumerate(city_list):
+        data = 'city_id=' + str(v[0]) + '&page=1'
+        res = request_api(ad_box_url, data, header_list[0])
+        try:
+            if not res['list']:
                 continue
-            for kk, vv in enumerate(res['list']):
-                if vv['img']:
-                    click_data = 'city_id=' + str(v[0]) + '&grid_id=' + vv['grid_id'] + '&longitude=' + v[
-                        1] + '&latitude=' + v[2]
-                    # print(click_data)
-                    try:
+        except Exception:
+            continue
+        for kk, vv in enumerate(res['list']):
+            if vv['img']:
+                click_data = 'city_id=' + str(v[0]) + '&grid_id=' + vv['grid_id'] + '&longitude=' + v[
+                    1] + '&latitude=' + v[2]
+                # print(click_data)
+                try:
+                    for request_header in header_list:
                         detail = request_api(click_url, click_data, request_header)
-                    except Exception:
-                        continue
-                else:
+                except Exception:
                     continue
+            else:
+                continue
     # 所有用户跑完之后休眠一个小时
     time.sleep(3600)
