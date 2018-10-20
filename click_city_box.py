@@ -36,4 +36,4 @@ while 1:
                 else:
                     continue
     # 所有用户跑完之后休眠一个小时
-    time.sleep(3600)
+    # time.sleep(3600)
