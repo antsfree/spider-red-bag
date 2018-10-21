@@ -108,14 +108,18 @@ red_bag_list_url = BASE_API_URL + 'redbag/redbag-list'
 while 1:
     # 用户 header 头列表，每次循环重新请求获取
     header_list = return_user_header_list()
+    # sleep_time 参数设置
+    next_time_list = []
+    sleep_time = 60
     # 循环用户入参列表，实现多用户切换取值
     for request_header in header_list:
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
-        # print(response)
-        # exit()
         try:
+            # IO优化，获取最小 next_time 作为 sleep_time
+            next_time_list.append(response['next_time'])
+            # 广告红包和系统红包的处理
             type_one_list = type_two_list = []
             for k, v in enumerate(response['list']):
                 # 广告红包 type=1
@@ -167,4 +171,6 @@ while 1:
         # !!强制更新 next_time
         request_api(red_bag_list_url, red_bag_list_request_data, request_header)
     # 所有用户扫一遍后，进入随机休眠
-    time.sleep(random.randint(60, 120))
+    if next_time_list:
+        sleep_time = min(next_time_list)
+    time.sleep(sleep_time)
