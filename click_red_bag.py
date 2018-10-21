@@ -172,5 +172,5 @@ while 1:
         request_api(red_bag_list_url, red_bag_list_request_data, request_header)
     # 所有用户扫一遍后，进入随机休眠
     if next_time_list:
-        sleep_time = min(next_time_list)
+        sleep_time = int(min(next_time_list))
     time.sleep(sleep_time)
