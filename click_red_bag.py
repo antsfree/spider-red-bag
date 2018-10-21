@@ -110,7 +110,7 @@ while 1:
     header_list = return_user_header_list()
     # sleep_time 参数设置
     next_time_list = []
-    sleep_time = 60
+    sleep_time = 10
     # 循环用户入参列表，实现多用户切换取值
     for request_header in header_list:
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
