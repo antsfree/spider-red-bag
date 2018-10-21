@@ -118,7 +118,7 @@ while 1:
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
         try:
             # IO优化，获取最小 next_time 作为 sleep_time
-            next_time_list.append(response['next_time'])
+            next_time_list.append(int(response['next_time']))
             # 广告红包和系统红包的处理
             type_one_list = type_two_list = []
             for k, v in enumerate(response['list']):
@@ -170,7 +170,7 @@ while 1:
         delete_clicked_red_bag(delete_ids)
         # !!强制更新 next_time
         request_api(red_bag_list_url, red_bag_list_request_data, request_header)
-    # 所有用户扫一遍后，进入随机休眠
+    # 所有用户扫一遍后，进入最小休眠周期
     if next_time_list:
-        sleep_time = int(min(next_time_list))
-    time.sleep(sleep_time)
+        sleep_time = min(next_time_list)
+    time.sleep(int(sleep_time))
