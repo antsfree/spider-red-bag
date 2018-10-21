@@ -88,15 +88,18 @@ def open_adv_red_bag(ad_list):
     """
     for detail in ad_list:
         # click red bag
-        type_one_click_url = BASE_API_URL + 'redbag/click'
-        type_one_click_data = 'type=1&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
-            'latitude'] + '&id=' + detail['id'] + '&uid=' + request_header['uid']
-        type_one_click_response = request_api(type_one_click_url, type_one_click_data, request_header)
-        # open red bag
-        type_one_open_url = BASE_API_URL + 'redbag/receive'
-        type_one_open_data = 'uid=' + request_header['uid'] + '&sign=' + type_one_click_response['sign'] + '&id=' + detail[
-            'id']
-        request_api(type_one_open_url, type_one_open_data, request_header)
+        try:
+            type_one_click_url = BASE_API_URL + 'redbag/click'
+            type_one_click_data = 'type=1&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
+                'latitude'] + '&id=' + detail['id'] + '&uid=' + request_header['uid']
+            type_one_click_response = request_api(type_one_click_url, type_one_click_data, request_header)
+            # open red bag
+            type_one_open_url = BASE_API_URL + 'redbag/receive'
+            type_one_open_data = 'uid=' + request_header['uid'] + '&sign=' + type_one_click_response['sign'] + '&id=' + detail[
+                'id']
+            request_api(type_one_open_url, type_one_open_data, request_header)
+        except Exception:
+            return False
 
 
 # 红包列表路由
