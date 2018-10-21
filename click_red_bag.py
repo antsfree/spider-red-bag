@@ -80,6 +80,25 @@ def update_user_info(uid, user_money):
         return False
 
 
+def open_adv_red_bag(ad_list):
+    """
+    拆广告红包
+    :param ad_list:
+    :return:
+    """
+    for detail in ad_list:
+        # click red bag
+        type_one_click_url = BASE_API_URL + 'redbag/click'
+        type_one_click_data = 'type=1&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
+            'latitude'] + '&id=' + detail['id'] + '&uid=' + request_header['uid']
+        type_one_click_response = request_api(type_one_click_url, type_one_click_data, request_header)
+        # open red bag
+        type_one_open_url = BASE_API_URL + 'redbag/receive'
+        type_one_open_data = 'uid=' + request_header['uid'] + '&sign=' + type_one_click_response['sign'] + '&id=' + detail[
+            'id']
+        request_api(type_one_open_url, type_one_open_data, request_header)
+
+
 # 红包列表路由
 red_bag_list_url = BASE_API_URL + 'redbag/redbag-list'
 # 持续执行 sleep&enumerate
@@ -91,9 +110,23 @@ while 1:
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
+        # print(response)
+        # exit()
         try:
-            list_num = len(response['list'])
-            # 更新用户余额
+            type_one_list = type_two_list = []
+            for k, v in enumerate(response['list']):
+                # 广告红包 type=1
+                if v['type'] == 1:
+                    type_one_list.append(v)
+                # 系统红包 type=2
+                elif v['type'] == 2:
+                    type_two_list.append(v)
+            if type_one_list:
+                # 广告红包直接点击掉
+                open_adv_red_bag(type_one_list)
+            # 系统红包处理
+            list_num = len(type_two_list)
+            # 更新用户余额(会慢一步更新)
             # TODO 更新用户next_time，优化 IO
             update_user_info(request_header['uid'], response['user_money'])
         except Exception:
@@ -124,10 +157,11 @@ while 1:
             click_res = click_red_bag(v[2], v[1], request_header['uid'], request_header)
         delete_ids = ','.join(del_list)
         if not delete_ids:
+            # print(delete_ids)
             continue
         # delete
         delete_clicked_red_bag(delete_ids)
-        # !!强制更新 next_time, 同时更新用户表
+        # !!强制更新 next_time
         request_api(red_bag_list_url, red_bag_list_request_data, request_header)
     # 所有用户扫一遍后，进入随机休眠
     time.sleep(random.randint(60, 120))
