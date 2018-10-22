@@ -176,4 +176,7 @@ while 1:
     if next_time_list:
         sleep_time = min(next_time_list)
     # print(sleep_time)
-    time.sleep(int(sleep_time))
+    try:
+        time.sleep(int(sleep_time))
+    except Exception:
+        time.sleep(10)
