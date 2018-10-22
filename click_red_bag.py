@@ -152,7 +152,8 @@ while 1:
             charset=DB_CHARSET
         )
         cursor = connect.cursor()
-        search_sql = 'select id,red_bag_id,sign from red_bag order by money desc limit ' + str(iterating_num)
+        search_sql = 'select id,red_bag_id,sign from red_bag where uid = ' + request_header[
+            'uid'] + ' order by money desc limit ' + str(iterating_num)
         cursor.execute(search_sql)
         sign_list = cursor.fetchall()
         cursor.close()
