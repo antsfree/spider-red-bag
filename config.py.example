@@ -11,3 +11,13 @@ DB_CHARSET = 'utf8'
 
 # 接口 URL
 BASE_API_URL = 'http://domain.com/api/m1/'
+
+# 接收人邮箱
+RECEIVER_EMAIL = []
+# 发送人邮箱信息
+SENDER_EMAIL = ''
+
+# 第三方 SMTP 服务
+MAIL_HOST = ''
+MAIL_USER =''
+MAIL_PASS = ''
