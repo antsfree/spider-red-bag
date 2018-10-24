@@ -6,6 +6,7 @@ from function import *
 from user_info import return_user_header_list
 from region import fetch_all_region
 import time
+from email_message import send_email
 
 # 区县列表
 city_list = fetch_all_region()
@@ -35,5 +36,6 @@ while 1:
                     continue
             else:
                 continue
+    send_email()
     # 所有用户跑完之后休眠一个小时
-    time.sleep(3600)
+    time.sleep(7200)
