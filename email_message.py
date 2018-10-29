@@ -3,6 +3,7 @@ from email.header import Header
 from smtplib import SMTP_SSL
 import time
 import config
+from user_info import get_user_list
 
 def send_email():
     """
@@ -22,6 +23,8 @@ def send_email():
         receiver = config.RECEIVER_EMAIL
         #邮件的正文内容
         mail_content = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + ' 脚本已经跑完, 进入下个周期。'
+        user_list = str(get_user_list('user_name,user_money'))
+        mail_content = mail_content + "\n" + user_list
         #邮件标题
         mail_title = '脚本处理结果报告'
 
