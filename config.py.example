@@ -13,7 +13,7 @@ DB_CHARSET = 'utf8'
 BASE_API_URL = 'http://domain.com/api/m1/'
 
 # 接收人邮箱
-RECEIVER_EMAIL = []
+RECEIVER_EMAIL = ''
 # 发送人邮箱信息
 SENDER_EMAIL = ''
 
