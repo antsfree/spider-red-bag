@@ -2,7 +2,7 @@ from config import *
 import pymysql
 
 
-def get_user_list():
+def get_user_list(field = '*'):
     # 查表
     connect = pymysql.Connect(
         host=DB_HOST,
@@ -14,7 +14,7 @@ def get_user_list():
     )
 
     cursor = connect.cursor()
-    search_sql = 'select * from user_info where is_delete = 0'
+    search_sql = 'select ' + field + ' from user_info where is_delete = 0'
     cursor.execute(search_sql)
     user_list = cursor.fetchall()
     cursor.close()
