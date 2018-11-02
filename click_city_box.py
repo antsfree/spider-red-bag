@@ -12,6 +12,7 @@ from email_message import send_email
 city_list = fetch_all_region()
 
 while 1:
+    send_email(' 脚本启动。')
     # 用户 header 头列表
     header_list = return_user_header_list()
     ad_box_url = BASE_API_URL + 'grid/get-list'
@@ -36,6 +37,6 @@ while 1:
                     continue
             else:
                 continue
-    send_email()
+    send_email(' 脚本已经跑完, 进入下个周期。')
     # 所有用户跑完之后休眠一个小时
     time.sleep(7200)
