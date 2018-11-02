@@ -38,5 +38,5 @@ while 1:
             else:
                 continue
     send_email(' 脚本已经跑完, 进入下个周期。')
-    # 所有用户跑完之后休眠一个小时
+    # 所有用户跑完之后休眠
     time.sleep(7200)
