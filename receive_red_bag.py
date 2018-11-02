@@ -22,8 +22,11 @@ def insert_red_bag(data, request_headers, min_money='0.0450'):
     # time.sleep(sleep_time)
     # 请求路由
     click_red_bag_url = BASE_API_URL + 'redbag/click'
-    # 获取红包信息
-    red_bag_info = request_api(click_red_bag_url, data, request_headers)
+    try:
+        # 获取红包信息
+        red_bag_info = request_api(click_red_bag_url, data, request_headers)
+    except Exception:
+        return False
     # 数据处理
     connect = pymysql.Connect(
         host=DB_HOST,
