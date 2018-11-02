@@ -6,7 +6,7 @@ import config
 from user_info import get_user_list
 
 
-def send_email():
+def send_email(other_content):
     """
     发邮件
     :return:
@@ -23,7 +23,7 @@ def send_email():
         # 收件人邮箱
         receiver = config.RECEIVER_EMAIL
         # 邮件的正文内容
-        mail_content = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + ' 脚本已经跑完, 进入下个周期。'
+        mail_content = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + other_content
         user_list = str(get_user_list('user_name,user_money'))
         mail_content = mail_content + "\n" + user_list
         # 邮件标题
