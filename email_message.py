@@ -6,12 +6,13 @@ import config
 from user_info import get_user_list
 
 
-def send_email(other_content):
+def send_email(other_content='', errors='None'):
     """
     发邮件
     :return:
     """
     try:
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime());
         # qq邮箱smtp服务器
         host_server = config.MAIL_HOST
         # sender_qq为发件人的qq号码
@@ -23,11 +24,10 @@ def send_email(other_content):
         # 收件人邮箱
         receiver = config.RECEIVER_EMAIL
         # 邮件的正文内容
-        mail_content = str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + other_content
         user_list = str(get_user_list('user_name,user_money'))
-        mail_content = mail_content + "\n" + user_list
+        mail_content = f'{other_content} \n {user_list} \n Errors: {errors}'
         # 邮件标题
-        mail_title = '脚本处理结果报告'
+        mail_title = f'{current_time} 脚本处理结果报告'
 
         # ssl登录
         smtp = SMTP_SSL(host_server)
