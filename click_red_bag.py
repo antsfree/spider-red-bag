@@ -117,9 +117,9 @@ while 1:
             continue
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
-        response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
-        # print(response)
         try:
+            response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
+            # print(response)
             # IO优化，获取最小 next_time 作为 sleep_time
             next_time_list.append(int(response['next_time']))
             # 广告红包和系统红包的处理
