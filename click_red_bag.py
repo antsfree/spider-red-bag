@@ -113,6 +113,8 @@ while 1:
     sleep_time = 10
     # 循环用户入参列表，实现多用户切换取值
     for request_header in header_list:
+        if request_header['uid'] == '422782':
+            continue
         red_bag_list_request_data = 'type=2&longitude=' + request_header['longitude'] + '&latitude=' + request_header[
             'latitude'] + '&id=1&uid=' + request_header['uid']
         response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
