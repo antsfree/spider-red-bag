@@ -15,6 +15,7 @@ while 1:
     # 执行时间过滤
     now_clock = time.localtime().tm_hour
     if now_clock not in (1, 14):
+        time.sleep(1800)
         continue
     send_email('脚本启动: ')
     # 用户 header 头列表
