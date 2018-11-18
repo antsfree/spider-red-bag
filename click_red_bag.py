@@ -7,6 +7,7 @@ from function import *
 import time
 import random
 from user_info import return_user_header_list
+from user_info import user_login
 
 
 def click_red_bag(re_sign, re_id, uid, re_headers):
@@ -120,6 +121,9 @@ while 1:
         try:
             response = request_api(red_bag_list_url, red_bag_list_request_data, request_header)
             # print(response)
+            if not response:
+                user_login(request_header['uid'])
+                continue
             # IO优化，获取最小 next_time 作为 sleep_time
             next_time_list.append(int(response['next_time']))
             # 广告红包和系统红包的处理
