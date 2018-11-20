@@ -14,10 +14,10 @@ city_list = fetch_all_region()
 while 1:
     # 执行时间过滤
     now_clock = time.localtime().tm_hour
-    if now_clock not in (1, 14):
+    if now_clock not in (1, 11, 21):
         time.sleep(1800)
         continue
-    send_email('脚本启动: ')
+    send_email('项目「' + SYS_MARK + '」脚本启动: ')
     # 用户 header 头列表
     header_list = return_user_header_list()
     ad_box_url = BASE_API_URL + 'grid/get-list'
@@ -42,4 +42,4 @@ while 1:
                     continue
             else:
                 continue
-    send_email('脚本已经跑完, 进入下个周期: ')
+    send_email('项目「' + SYS_MARK + '」脚本已经跑完, 进入下个周期: ')

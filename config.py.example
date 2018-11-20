@@ -21,3 +21,6 @@ SENDER_EMAIL = ''
 MAIL_HOST = ''
 MAIL_USER =''
 MAIL_PASS = ''
+
+# 项目标识
+SYS_MARK = 'Example-Project'
