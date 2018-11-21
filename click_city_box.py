@@ -24,8 +24,8 @@ while 1:
     click_url = BASE_API_URL + 'grid/detail'
     for k, v in enumerate(city_list):
         data = 'city_id=' + str(v[0]) + '&page=1'
-        res = request_api(ad_box_url, data, header_list[0])
         try:
+            res = request_api(ad_box_url, data, header_list[0])
             if not res['list']:
                 continue
         except Exception:
